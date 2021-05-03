@@ -50,3 +50,9 @@ from the current directory where the command is being run from. This can be fixe
 running the following command to disable globbing:
 
 `set -o noglob`
+
+# TODO
+
+*  Add interval notation parser
+*  Add expressionParser_test.go
+*  Add app_test.go
