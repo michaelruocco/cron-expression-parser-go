@@ -44,7 +44,6 @@ func Parse(args []string) (CronResult, error) {
 
 func parse(rawValues string, timeUnit timeUnit, notationParser notationParser) ([]int, error) {
 	intValues := ToIntValues(timeUnit, rawValues)
-	fmt.Println("INT VALUES", intValues)
 	if notationParser.appliesTo(intValues) {
 		values, err := notationParser.toValues(intValues, timeUnit)
 		if err != nil {

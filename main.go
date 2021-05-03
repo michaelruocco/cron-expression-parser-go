@@ -9,20 +9,12 @@ import (
 
 func main() {
 	args := removeProgramName(os.Args)
-	santizedArgs, err := domain.Sanitize(args)
+	output, err := domain.Run(args)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
-	result, err := domain.Parse(santizedArgs)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	formattedResult := domain.Format(result)
-	fmt.Println(formattedResult)
+	fmt.Println(output)
 }
 
 func removeProgramName(args []string) []string {

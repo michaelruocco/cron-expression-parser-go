@@ -22,16 +22,13 @@ func (p *rangeNotationParser) toValues(input string, timeUnit timeUnit) ([]int, 
 		return nil, fmt.Errorf("invalid range notation %v", input)
 	}
 	start, parseErr := strconv.Atoi(parts[0])
-	fmt.Println("start " + strconv.Itoa(start))
 	if parseErr != nil {
 		return nil, parseErr
 	}
 	end, parseErr := strconv.Atoi(parts[1])
-	fmt.Println("end " + strconv.Itoa(end))
 	if parseErr != nil {
 		return nil, parseErr
 	}
-	fmt.Println("HERE validating")
 	boundsErr := ValidateMultiple(timeUnit, []int{start, end})
 	if boundsErr != nil {
 		return nil, boundsErr
