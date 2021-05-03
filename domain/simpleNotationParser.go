@@ -7,12 +7,15 @@ import (
 type simpleNotationParser struct{}
 
 func (p *simpleNotationParser) appliesTo(input string) bool {
-	_, err := strconv.Atoi(input)
-	return err == nil
+	value, err := strconv.Atoi(input)
+	return err == nil && value > -1
 }
 
 func (p *simpleNotationParser) toValues(input string, timeUnit timeUnit) ([]int, error) {
-	value, _ := strconv.Atoi(input)
+	value, parseErr := strconv.Atoi(input)
+	if parseErr != nil {
+		return nil, parseErr
+	}
 	err := Validate(timeUnit, value)
 	return []int{value}, err
 }
