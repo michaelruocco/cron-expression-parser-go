@@ -29,7 +29,7 @@ command /usr/bin/find
 
 ## Running Unit Tests
 
-`go test ./...`
+`go test -v ./...`
 
 ## Running Example
 
@@ -37,7 +37,7 @@ command /usr/bin/find
 
 or
 
-`go run main.go -arguments */15 0 1,15 * 1-9 /usr/bin/find`
+`go run main.go -arguments */15 0 1,15 * MON-FRI /usr/bin/find`
 
 If you are planning to pass any arguments with `*` notation you may
 need to configure your terminal to disable globbing. I found that using zsh shell on my mac this was
