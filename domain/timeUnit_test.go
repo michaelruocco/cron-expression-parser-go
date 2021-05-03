@@ -14,6 +14,15 @@ func TestMinuteShouldReturnAllValues(t *testing.T) {
 	assert.Equal(t, allValues, allRangeValuesIncluding(0, 59))
 }
 
+func TestMinuteShouldReturnValuesUnchanged(t *testing.T) {
+	timeUnit := Minute()
+	inputValues := "1,2,3"
+
+	values := ToIntValues(timeUnit, inputValues)
+
+	assert.Equal(t, values, inputValues)
+}
+
 func TestMinuteShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
 	timeUnit := Minute()
 	values := []int{0, 59}
@@ -47,6 +56,15 @@ func TestHourShouldReturnAllValues(t *testing.T) {
 	allValues := AllValues(timeUnit)
 
 	assert.Equal(t, allValues, allRangeValuesIncluding(0, 23))
+}
+
+func TestHourShouldReturnValuesUnchanged(t *testing.T) {
+	timeUnit := Hour()
+	inputValues := "1,2,3"
+
+	values := ToIntValues(timeUnit, inputValues)
+
+	assert.Equal(t, values, inputValues)
 }
 
 func TestHourShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
@@ -84,6 +102,15 @@ func TestDayOfMonthShouldReturnAllValues(t *testing.T) {
 	assert.Equal(t, allValues, allRangeValuesIncluding(1, 31))
 }
 
+func TestDayOfMonthShouldReturnValuesUnchanged(t *testing.T) {
+	timeUnit := DayOfMonth()
+	inputValues := "1,2,3"
+
+	values := ToIntValues(timeUnit, inputValues)
+
+	assert.Equal(t, values, inputValues)
+}
+
 func TestDayOfMonthShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
 	timeUnit := DayOfMonth()
 	values := []int{1, 31}
@@ -119,6 +146,15 @@ func TestMonthShouldReturnAllValues(t *testing.T) {
 	assert.Equal(t, allValues, allRangeValuesIncluding(1, 12))
 }
 
+func TestMonthShouldReturnTextualValuesConvertedToInts(t *testing.T) {
+	timeUnit := Month()
+	inputValues := "JAN,Feb,maR,aPr,may,jun,jul,aug,sep,oct,nov,dec"
+
+	values := ToIntValues(timeUnit, inputValues)
+
+	assert.Equal(t, values, "1,2,3,4,5,6,7,8,9,10,11,12")
+}
+
 func TestMonthShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
 	timeUnit := Month()
 	values := []int{1, 12}
@@ -152,6 +188,15 @@ func TestDayOfWeekShouldReturnValues(t *testing.T) {
 	allValues := AllValues(timeUnit)
 
 	assert.Equal(t, allValues, allRangeValuesIncluding(0, 6))
+}
+
+func TestDayOfWeekShouldReturnTextualValuesConvertedToInts(t *testing.T) {
+	timeUnit := DayOfWeek()
+	inputValues := "MON,Tue,weD,tHu,fri,sat,sun"
+
+	values := ToIntValues(timeUnit, inputValues)
+
+	assert.Equal(t, values, "0,1,2,3,4,5,6")
 }
 
 func TestDayOfWeekShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {

@@ -2,6 +2,7 @@ package domain
 
 import (
 	"fmt"
+	"strings"
 )
 
 type timeUnit struct {
@@ -39,6 +40,17 @@ func AllValues(timeUnit timeUnit) []int {
 	return values
 }
 
+func ToIntValues(timeUnit timeUnit, inputValues string) string {
+	switch timeUnit.name {
+	case "day of week":
+		return toDaysOfWeek(inputValues)
+	case "month":
+		return toMonths(inputValues)
+	default:
+		return inputValues
+	}
+}
+
 func ValidateMultiple(timeUnit timeUnit, inputs []int) error {
 	for _, input := range inputs {
 		err := Validate(timeUnit, input)
@@ -50,7 +62,7 @@ func ValidateMultiple(timeUnit timeUnit, inputs []int) error {
 }
 
 func Validate(timeUnit timeUnit, input int) error {
-	if timeUnit.isOutOfBounds(input) {
+	if isOutOfBounds(timeUnit, input) {
 		return fmt.Errorf("invalid %v value %d outside bounds %d and %d",
 			timeUnit.name,
 			input,
@@ -60,6 +72,37 @@ func Validate(timeUnit timeUnit, input int) error {
 	return nil
 }
 
-func (timeUnit timeUnit) isOutOfBounds(input int) bool {
+func toDaysOfWeek(input string) string {
+	replacer := strings.NewReplacer(
+		"mon", "0",
+		"tue", "1",
+		"wed", "2",
+		"thu", "3",
+		"fri", "4",
+		"sat", "5",
+		"sun", "6",
+	)
+	return replacer.Replace(strings.ToLower(input))
+}
+
+func toMonths(input string) string {
+	replacer := strings.NewReplacer(
+		"jan", "1",
+		"feb", "2",
+		"mar", "3",
+		"apr", "4",
+		"may", "5",
+		"jun", "6",
+		"jul", "7",
+		"aug", "8",
+		"sep", "9",
+		"oct", "10",
+		"nov", "11",
+		"dec", "12",
+	)
+	return replacer.Replace(strings.ToLower(input))
+}
+
+func isOutOfBounds(timeUnit timeUnit, input int) bool {
 	return input < timeUnit.lowerBound || input > timeUnit.upperBound
 }
