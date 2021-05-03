@@ -11,7 +11,7 @@ func TestMinuteShouldReturnAllValues(t *testing.T) {
 
 	allValues := AllValues(timeUnit)
 
-	assert.Equal(t, allValues, allRangeValuesIncluding(0, 59))
+	assert.Equal(t, InclusiveRange(0, 59), allValues)
 }
 
 func TestMinuteShouldReturnValuesUnchanged(t *testing.T) {
@@ -20,7 +20,7 @@ func TestMinuteShouldReturnValuesUnchanged(t *testing.T) {
 
 	values := ToIntValues(timeUnit, inputValues)
 
-	assert.Equal(t, values, inputValues)
+	assert.Equal(t, inputValues, values)
 }
 
 func TestMinuteShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
@@ -29,7 +29,7 @@ func TestMinuteShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
 
 	err := ValidateMultiple(timeUnit, values)
 
-	assert.Equal(t, err, nil)
+	assert.Equal(t, nil, err)
 }
 
 func TestMinuteShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
@@ -38,7 +38,7 @@ func TestMinuteShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
 
 	err := Validate(timeUnit, value)
 
-	assert.Equal(t, err.Error(), "invalid minute value -1 outside bounds 0 and 59")
+	assert.Equal(t, "invalid minute value -1 outside bounds 0 and 59", err.Error())
 }
 
 func TestMinuteShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T) {
@@ -47,7 +47,7 @@ func TestMinuteShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T) {
 
 	err := Validate(timeUnit, value)
 
-	assert.Equal(t, err.Error(), "invalid minute value 60 outside bounds 0 and 59")
+	assert.Equal(t, "invalid minute value 60 outside bounds 0 and 59", err.Error())
 }
 
 func TestHourShouldReturnAllValues(t *testing.T) {
@@ -55,7 +55,7 @@ func TestHourShouldReturnAllValues(t *testing.T) {
 
 	allValues := AllValues(timeUnit)
 
-	assert.Equal(t, allValues, allRangeValuesIncluding(0, 23))
+	assert.Equal(t, InclusiveRange(0, 23), allValues)
 }
 
 func TestHourShouldReturnValuesUnchanged(t *testing.T) {
@@ -64,7 +64,7 @@ func TestHourShouldReturnValuesUnchanged(t *testing.T) {
 
 	values := ToIntValues(timeUnit, inputValues)
 
-	assert.Equal(t, values, inputValues)
+	assert.Equal(t, inputValues, values)
 }
 
 func TestHourShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
@@ -73,7 +73,7 @@ func TestHourShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
 
 	err := ValidateMultiple(timeUnit, values)
 
-	assert.Equal(t, err, nil)
+	assert.Equal(t, nil, err)
 }
 
 func TestHourShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
@@ -82,7 +82,7 @@ func TestHourShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
 
 	err := Validate(timeUnit, value)
 
-	assert.Equal(t, err.Error(), "invalid hour value -1 outside bounds 0 and 23")
+	assert.Equal(t, "invalid hour value -1 outside bounds 0 and 23", err.Error())
 }
 
 func TestHourShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T) {
@@ -91,7 +91,7 @@ func TestHourShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T) {
 
 	err := Validate(timeUnit, value)
 
-	assert.Equal(t, err.Error(), "invalid hour value 24 outside bounds 0 and 23")
+	assert.Equal(t, "invalid hour value 24 outside bounds 0 and 23", err.Error())
 }
 
 func TestDayOfMonthShouldReturnAllValues(t *testing.T) {
@@ -99,7 +99,7 @@ func TestDayOfMonthShouldReturnAllValues(t *testing.T) {
 
 	allValues := AllValues(timeUnit)
 
-	assert.Equal(t, allValues, allRangeValuesIncluding(1, 31))
+	assert.Equal(t, InclusiveRange(1, 31), allValues)
 }
 
 func TestDayOfMonthShouldReturnValuesUnchanged(t *testing.T) {
@@ -108,7 +108,7 @@ func TestDayOfMonthShouldReturnValuesUnchanged(t *testing.T) {
 
 	values := ToIntValues(timeUnit, inputValues)
 
-	assert.Equal(t, values, inputValues)
+	assert.Equal(t, inputValues, values)
 }
 
 func TestDayOfMonthShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
@@ -117,7 +117,7 @@ func TestDayOfMonthShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
 
 	err := ValidateMultiple(timeUnit, values)
 
-	assert.Equal(t, err, nil)
+	assert.Equal(t, nil, err)
 }
 
 func TestDayOfMonthShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
@@ -126,7 +126,7 @@ func TestDayOfMonthShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
 
 	err := Validate(timeUnit, value)
 
-	assert.Equal(t, err.Error(), "invalid day of month value 0 outside bounds 1 and 31")
+	assert.Equal(t, "invalid day of month value 0 outside bounds 1 and 31", err.Error())
 }
 
 func TestDayOfMonthShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T) {
@@ -135,7 +135,7 @@ func TestDayOfMonthShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T)
 
 	err := Validate(timeUnit, value)
 
-	assert.Equal(t, err.Error(), "invalid day of month value 32 outside bounds 1 and 31")
+	assert.Equal(t, "invalid day of month value 32 outside bounds 1 and 31", err.Error())
 }
 
 func TestMonthShouldReturnAllValues(t *testing.T) {
@@ -143,7 +143,7 @@ func TestMonthShouldReturnAllValues(t *testing.T) {
 
 	allValues := AllValues(timeUnit)
 
-	assert.Equal(t, allValues, allRangeValuesIncluding(1, 12))
+	assert.Equal(t, InclusiveRange(1, 12), allValues)
 }
 
 func TestMonthShouldReturnTextualValuesConvertedToInts(t *testing.T) {
@@ -152,7 +152,7 @@ func TestMonthShouldReturnTextualValuesConvertedToInts(t *testing.T) {
 
 	values := ToIntValues(timeUnit, inputValues)
 
-	assert.Equal(t, values, "1,2,3,4,5,6,7,8,9,10,11,12")
+	assert.Equal(t, "1,2,3,4,5,6,7,8,9,10,11,12", values)
 }
 
 func TestMonthShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
@@ -161,7 +161,7 @@ func TestMonthShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
 
 	err := ValidateMultiple(timeUnit, values)
 
-	assert.Equal(t, err, nil)
+	assert.Equal(t, nil, err)
 }
 
 func TestMonthShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
@@ -170,7 +170,7 @@ func TestMonthShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
 
 	err := Validate(timeUnit, value)
 
-	assert.Equal(t, err.Error(), "invalid month value 0 outside bounds 1 and 12")
+	assert.Equal(t, "invalid month value 0 outside bounds 1 and 12", err.Error())
 }
 
 func TestMonthShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T) {
@@ -179,7 +179,7 @@ func TestMonthShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T) {
 
 	err := Validate(timeUnit, value)
 
-	assert.Equal(t, err.Error(), "invalid month value 13 outside bounds 1 and 12")
+	assert.Equal(t, "invalid month value 13 outside bounds 1 and 12", err.Error())
 }
 
 func TestDayOfWeekShouldReturnValues(t *testing.T) {
@@ -187,7 +187,7 @@ func TestDayOfWeekShouldReturnValues(t *testing.T) {
 
 	allValues := AllValues(timeUnit)
 
-	assert.Equal(t, allValues, allRangeValuesIncluding(0, 6))
+	assert.Equal(t, InclusiveRange(0, 6), allValues)
 }
 
 func TestDayOfWeekShouldReturnTextualValuesConvertedToInts(t *testing.T) {
@@ -196,7 +196,7 @@ func TestDayOfWeekShouldReturnTextualValuesConvertedToInts(t *testing.T) {
 
 	values := ToIntValues(timeUnit, inputValues)
 
-	assert.Equal(t, values, "0,1,2,3,4,5,6")
+	assert.Equal(t, "0,1,2,3,4,5,6", values)
 }
 
 func TestDayOfWeekShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
@@ -205,7 +205,7 @@ func TestDayOfWeekShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
 
 	err := ValidateMultiple(timeUnit, values)
 
-	assert.Equal(t, err, nil)
+	assert.Equal(t, nil, err)
 }
 
 func TestDayOfWeekShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
@@ -214,7 +214,7 @@ func TestDayOfWeekShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
 
 	err := Validate(timeUnit, value)
 
-	assert.Equal(t, err.Error(), "invalid day of week value -1 outside bounds 0 and 6")
+	assert.Equal(t, "invalid day of week value -1 outside bounds 0 and 6", err.Error())
 }
 
 func TestDayOfWeekShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T) {
@@ -223,13 +223,5 @@ func TestDayOfWeekShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T) 
 
 	err := Validate(timeUnit, value)
 
-	assert.Equal(t, err.Error(), "invalid day of week value 7 outside bounds 0 and 6")
-}
-
-func allRangeValuesIncluding(min, max int) []int {
-	a := make([]int, max-min+1)
-	for i := range a {
-		a[i] = min + i
-	}
-	return a
+	assert.Equal(t, "invalid day of week value 7 outside bounds 0 and 6", err.Error())
 }

@@ -9,15 +9,15 @@ import (
 func TestShouldApplyToWildcard(t *testing.T) {
 	parser := &wildcardNotationParser{}
 
-	assert.Equal(t, parser.appliesTo("*"), true)
+	assert.Equal(t, true, parser.appliesTo("*"))
 
-	assert.Equal(t, parser.appliesTo("1.5"), false)
-	assert.Equal(t, parser.appliesTo("1"), false)
-	assert.Equal(t, parser.appliesTo("-1"), false)
-	assert.Equal(t, parser.appliesTo("*/2"), false)
-	assert.Equal(t, parser.appliesTo("3,4"), false)
-	assert.Equal(t, parser.appliesTo("5-6"), false)
-	assert.Equal(t, parser.appliesTo("text"), false)
+	assert.Equal(t, false, parser.appliesTo("1.5"))
+	assert.Equal(t, false, parser.appliesTo("1"))
+	assert.Equal(t, false, parser.appliesTo("-1"))
+	assert.Equal(t, false, parser.appliesTo("*/2"))
+	assert.Equal(t, false, parser.appliesTo("3,4"))
+	assert.Equal(t, false, parser.appliesTo("5-6"))
+	assert.Equal(t, false, parser.appliesTo("text"))
 }
 
 func TestShouldReturnAllValuesFromTimeUnitRegardlessOfInput(t *testing.T) {
@@ -27,5 +27,5 @@ func TestShouldReturnAllValuesFromTimeUnitRegardlessOfInput(t *testing.T) {
 
 	values, _ := parser.toValues(input, timeUnit)
 
-	assert.Equal(t, values, AllValues(timeUnit))
+	assert.Equal(t, AllValues(timeUnit), values)
 }

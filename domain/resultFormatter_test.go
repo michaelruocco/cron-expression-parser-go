@@ -11,12 +11,12 @@ func TestShouldFormatResult(t *testing.T) {
 
 	formatted := Format(result)
 
-	assert.Equal(t, formatted, "minute        39 40\n"+
+	assert.Equal(t, "minute        39 40\n"+
 		"hour          9 10\n"+
 		"day of month  20 21\n"+
 		"month         3 4\n"+
 		"day of week   1 2\n"+
-		"command       my-command")
+		"command       my-command", formatted)
 }
 
 func buildResult() CronResult {

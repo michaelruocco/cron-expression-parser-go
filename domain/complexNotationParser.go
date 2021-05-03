@@ -12,6 +12,7 @@ func BuildNotationParser() notationParser {
 	parser := &complexNotationParser{}
 	parser.add(&simpleNotationParser{})
 	parser.add(&wildcardNotationParser{})
+	parser.add(&rangeNotationParser{})
 	return parser
 }
 

@@ -7,8 +7,7 @@ import (
 type simpleNotationParser struct{}
 
 func (p *simpleNotationParser) appliesTo(input string) bool {
-	value, err := strconv.Atoi(input)
-	return err == nil && value > -1
+	return IsInt(input)
 }
 
 func (p *simpleNotationParser) toValues(input string, timeUnit timeUnit) ([]int, error) {

@@ -35,5 +35,5 @@ func TestShouldReturnLastSixArgumentsIfMoreThanSixArgumentsPassed(t *testing.T) 
 
 	sanitized, _ := Sanitize(args)
 
-	assert.Equal(t, sanitized, []string{"2", "3", "4", "5", "6", "7"})
+	assert.Equal(t, []string{"2", "3", "4", "5", "6", "7"}, sanitized)
 }
