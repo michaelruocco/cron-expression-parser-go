@@ -29,7 +29,7 @@ command /usr/bin/find
 
 ## Running Unit Tests
 
-`go test -v ./...`
+`go test -v ./... -cover`
 
 ## Running Example
 
