@@ -94,5 +94,14 @@ func TestShouldReturnErrorIfIntervalStartIsIsNotInteger(t *testing.T) {
 
 	_, err := parser.toValues(input, hour())
 
-	assert.Equal(t, "strconv.Atoi: parsing \"3.5\": invalid syntax", err.Error())
+	assert.Equal(t, "invalid notation 3.5", err.Error())
+}
+
+func TestShouldReturnErrorIfIntervalIsNotInteger(t *testing.T) {
+	parser := buildIntervalNotationParser()
+	input := "3/2.5"
+
+	_, err := parser.toValues(input, hour())
+
+	assert.Equal(t, "invalid interval notation 3/2.5", err.Error())
 }

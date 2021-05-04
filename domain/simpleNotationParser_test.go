@@ -53,5 +53,5 @@ func TestShouldReturnErrorIfInputIsNotInteger(t *testing.T) {
 
 	_, err := parser.toValues(input, hour())
 
-	assert.Equal(t, "strconv.Atoi: parsing \"2.5\": invalid syntax", err.Error())
+	assert.Equal(t, "invalid notation 2.5", err.Error())
 }

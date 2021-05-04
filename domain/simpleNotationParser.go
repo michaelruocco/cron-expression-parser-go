@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -14,7 +15,7 @@ func (p *simpleNotationParser) appliesTo(input string) bool {
 func (p *simpleNotationParser) toValues(input string, timeUnit timeUnit) ([]int, error) {
 	values, parseErr := toInts(input)
 	if parseErr != nil {
-		return nil, parseErr
+		return nil, fmt.Errorf("invalid notation %v", input)
 	}
 	err := timeUnitValidateMultipleInputs(timeUnit, values)
 	return values, err
@@ -26,7 +27,7 @@ func toInts(input string) ([]int, error) {
 	for i, segment := range segments {
 		value, parseErr := strconv.Atoi(segment)
 		if parseErr != nil {
-			return nil, parseErr
+			return nil, fmt.Errorf("invalid notation %v", input)
 		}
 		values[i] = value
 	}

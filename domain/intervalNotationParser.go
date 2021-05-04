@@ -38,7 +38,7 @@ func (p *intervalNotationParser) toValues(input string, timeUnit timeUnit) ([]in
 	}
 	interval, parseErr := strconv.Atoi(parts[1])
 	if parseErr != nil {
-		return nil, parseErr
+		return nil, fmt.Errorf("invalid interval notation %v", input)
 	}
 	boundsErr := timeUnitValidateMultipleInputs(timeUnit, starts)
 	if boundsErr != nil {
