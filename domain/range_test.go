@@ -23,3 +23,12 @@ func TestShouldReturnValuesInRangeIncludingStartAndEndWhenStartGreaterThanEnd(t 
 
 	assert.Equal(t, []int{0, 1, 2, 3}, values)
 }
+
+func TestShouldReturnValueWhenRangeStartAndEndAreEqual(t *testing.T) {
+	start := 3
+	end := 3
+
+	values := inclusiveRange(start, end)
+
+	assert.Equal(t, []int{3}, values)
+}

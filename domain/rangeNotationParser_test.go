@@ -39,6 +39,15 @@ func TestShouldReturnValuesWithinRangeIfStartIsGreaterThanEnd(t *testing.T) {
 	assert.Equal(t, []int{1, 2, 3}, values)
 }
 
+func TestShouldReturnValueIfRangeStartIsEqualToEnd(t *testing.T) {
+	parser := &rangeNotationParser{}
+	input := "3-3"
+
+	values, _ := parser.toValues(input, hour())
+
+	assert.Equal(t, []int{3}, values)
+}
+
 func TestShouldReturnErrorIfRangeNotationIsInvalid(t *testing.T) {
 	parser := &rangeNotationParser{}
 	input := "-1-23"
