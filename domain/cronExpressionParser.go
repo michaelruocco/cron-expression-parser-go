@@ -19,7 +19,7 @@ func ParseCronExpression(args []string) (string, error) {
 }
 
 func parseExpression(args []string) (cronResult, error) {
-	notationParser := buildNotationParser()
+	notationParser := buildComplexNotationParser()
 
 	minutes, err := parse(args[0], minute(), notationParser)
 	if err != nil {

@@ -54,5 +54,5 @@ running the following command to disable globbing:
 # TODO
 
 *  Add interval notation parser
-*  Add expressionParser_test.go
+*  Add cronExpressionParser_test.go
 *  Add app_test.go

@@ -4,20 +4,18 @@ import (
 	"strings"
 )
 
-func buildNotationParser() notationParser {
-	parser := &complexNotationParser{}
-	parser.add(&simpleNotationParser{})
-	parser.add(&wildcardNotationParser{})
-	parser.add(&rangeNotationParser{})
-	return parser
+func buildComplexNotationParser() notationParser {
+	return &complexNotationParser{
+		parsers: []notationParser{
+			&simpleNotationParser{},
+			&wildcardNotationParser{},
+			&rangeNotationParser{},
+		},
+	}
 }
 
 type complexNotationParser struct {
 	parsers []notationParser
-}
-
-func (p *complexNotationParser) add(parser notationParser) {
-	p.parsers = append(p.parsers, parser)
 }
 
 func (p *complexNotationParser) appliesTo(input string) bool {
