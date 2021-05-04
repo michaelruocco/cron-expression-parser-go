@@ -92,3 +92,12 @@ func TestShouldReturnErrorIfRangeStartIsNotInteger(t *testing.T) {
 
 	assert.Equal(t, "invalid range notation 1.5-20", err.Error())
 }
+
+func TestShouldReturnErrorIfRangeEndIsNotInteger(t *testing.T) {
+	parser := &rangeNotationParser{}
+	input := "1-20.5"
+
+	_, err := parser.toValues(input, hour())
+
+	assert.Equal(t, "invalid range notation 1-20.5", err.Error())
+}
