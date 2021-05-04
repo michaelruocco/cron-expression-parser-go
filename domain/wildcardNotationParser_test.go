@@ -23,9 +23,9 @@ func TestShouldApplyToWildcard(t *testing.T) {
 func TestShouldReturnAllValuesFromTimeUnitRegardlessOfInput(t *testing.T) {
 	parser := &wildcardNotationParser{}
 	input := "*"
-	timeUnit := Hour()
+	timeUnit := hour()
 
 	values, _ := parser.toValues(input, timeUnit)
 
-	assert.Equal(t, AllValues(timeUnit), values)
+	assert.Equal(t, timeUnitToAllValues(timeUnit), values)
 }

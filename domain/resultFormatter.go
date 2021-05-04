@@ -6,11 +6,11 @@ import (
 	"strings"
 )
 
-func Format(result CronResult) string {
+func format(result cronResult) string {
 	return strings.Join(toLines(result), "\n")
 }
 
-func toLines(result CronResult) []string {
+func toLines(result cronResult) []string {
 	return []string{
 		formatMinutes(result),
 		formatHours(result),
@@ -21,27 +21,27 @@ func toLines(result CronResult) []string {
 	}
 }
 
-func formatMinutes(result CronResult) string {
+func formatMinutes(result cronResult) string {
 	return formatValues("minute", toString(result.Minutes))
 }
 
-func formatHours(result CronResult) string {
+func formatHours(result cronResult) string {
 	return formatValues("hour", toString(result.Hours))
 }
 
-func formatDaysOfMonth(result CronResult) string {
+func formatDaysOfMonth(result cronResult) string {
 	return formatValues("day of month", toString(result.DaysOfMonth))
 }
 
-func formatMonths(result CronResult) string {
+func formatMonths(result cronResult) string {
 	return formatValues("month", toString(result.Months))
 }
 
-func formatDaysOfWeek(result CronResult) string {
+func formatDaysOfWeek(result cronResult) string {
 	return formatValues("day of week", toString(result.DaysOfWeek))
 }
 
-func formatCommand(result CronResult) string {
+func formatCommand(result cronResult) string {
 	return formatValues("command", result.Command)
 }
 

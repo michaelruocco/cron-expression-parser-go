@@ -9,7 +9,7 @@ import (
 func TestShouldFormatResult(t *testing.T) {
 	result := buildResult()
 
-	formatted := Format(result)
+	formatted := format(result)
 
 	assert.Equal(t, "minute        39 40\n"+
 		"hour          9 10\n"+
@@ -19,8 +19,8 @@ func TestShouldFormatResult(t *testing.T) {
 		"command       my-command", formatted)
 }
 
-func buildResult() CronResult {
-	return CronResult{
+func buildResult() cronResult {
+	return cronResult{
 		Minutes:     []int{40, 39},
 		Hours:       []int{10, 9},
 		DaysOfMonth: []int{21, 20},

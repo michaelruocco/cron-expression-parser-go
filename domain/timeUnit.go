@@ -11,27 +11,27 @@ type timeUnit struct {
 	upperBound int
 }
 
-func Minute() timeUnit {
+func minute() timeUnit {
 	return timeUnit{"minute", 0, 59}
 }
 
-func Hour() timeUnit {
+func hour() timeUnit {
 	return timeUnit{"hour", 0, 23}
 }
 
-func DayOfMonth() timeUnit {
+func dayOfMonth() timeUnit {
 	return timeUnit{"day of month", 1, 31}
 }
 
-func Month() timeUnit {
+func month() timeUnit {
 	return timeUnit{"month", 1, 12}
 }
 
-func DayOfWeek() timeUnit {
+func dayOfWeek() timeUnit {
 	return timeUnit{"day of week", 0, 6}
 }
 
-func AllValues(timeUnit timeUnit) []int {
+func timeUnitToAllValues(timeUnit timeUnit) []int {
 	min := timeUnit.lowerBound
 	values := make([]int, timeUnit.upperBound-min+1)
 	for i := range values {
@@ -40,7 +40,7 @@ func AllValues(timeUnit timeUnit) []int {
 	return values
 }
 
-func ToIntValues(timeUnit timeUnit, inputValues string) string {
+func timeUnitInputToIntValues(timeUnit timeUnit, inputValues string) string {
 	switch timeUnit.name {
 	case "day of week":
 		return toDaysOfWeek(inputValues)
@@ -51,9 +51,9 @@ func ToIntValues(timeUnit timeUnit, inputValues string) string {
 	}
 }
 
-func ValidateMultiple(timeUnit timeUnit, inputs []int) error {
+func timeUnitValidateMultipleInputs(timeUnit timeUnit, inputs []int) error {
 	for _, input := range inputs {
-		err := Validate(timeUnit, input)
+		err := timeUnitValidateInput(timeUnit, input)
 		if err != nil {
 			return err
 		}
@@ -61,7 +61,7 @@ func ValidateMultiple(timeUnit timeUnit, inputs []int) error {
 	return nil
 }
 
-func Validate(timeUnit timeUnit, input int) error {
+func timeUnitValidateInput(timeUnit timeUnit, input int) error {
 	if isOutOfBounds(timeUnit, input) {
 		return fmt.Errorf("invalid %v value %d outside bounds %d and %d",
 			timeUnit.name,

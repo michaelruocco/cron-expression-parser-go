@@ -6,7 +6,7 @@ import (
 
 const REQUIRED_ARGUMENTS = 6
 
-func Sanitize(args []string) ([]string, error) {
+func sanitize(args []string) ([]string, error) {
 	if len(args) < REQUIRED_ARGUMENTS {
 		return nil, errors.New("usage: please provide a valid cron expression")
 	}

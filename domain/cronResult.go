@@ -1,6 +1,6 @@
 package domain
 
-type CronResult struct {
+type cronResult struct {
 	Minutes     []int
 	Hours       []int
 	DaysOfMonth []int

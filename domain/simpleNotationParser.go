@@ -7,7 +7,7 @@ import (
 type simpleNotationParser struct{}
 
 func (p *simpleNotationParser) appliesTo(input string) bool {
-	return IsInt(input)
+	return isInt(input)
 }
 
 func (p *simpleNotationParser) toValues(input string, timeUnit timeUnit) ([]int, error) {
@@ -15,6 +15,6 @@ func (p *simpleNotationParser) toValues(input string, timeUnit timeUnit) ([]int,
 	if parseErr != nil {
 		return nil, parseErr
 	}
-	err := Validate(timeUnit, value)
+	err := timeUnitValidateInput(timeUnit, value)
 	return []int{value}, err
 }

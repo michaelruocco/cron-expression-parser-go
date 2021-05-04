@@ -9,7 +9,7 @@ import (
 
 func main() {
 	args := removeProgramName(os.Args)
-	output, err := domain.Run(args)
+	output, err := domain.ParseCronExpression(args)
 	if err != nil {
 		fmt.Println(err)
 		return

@@ -25,7 +25,7 @@ func TestShouldReturnValuesWithinRange(t *testing.T) {
 	parser := &rangeNotationParser{}
 	input := "1-3"
 
-	values, _ := parser.toValues(input, Hour())
+	values, _ := parser.toValues(input, hour())
 
 	assert.Equal(t, []int{1, 2, 3}, values)
 }
@@ -34,7 +34,7 @@ func TestShouldReturnErrorIfRangeNotationIsInvalid(t *testing.T) {
 	parser := &rangeNotationParser{}
 	input := "-1-23"
 
-	_, err := parser.toValues(input, Hour())
+	_, err := parser.toValues(input, hour())
 
 	assert.Equal(t, "invalid range notation -1-23", err.Error())
 }
@@ -43,7 +43,7 @@ func TestShouldReturnErrorIfInputIsNotRangeInput(t *testing.T) {
 	parser := &rangeNotationParser{}
 	input := "0"
 
-	_, err := parser.toValues(input, Hour())
+	_, err := parser.toValues(input, hour())
 
 	assert.Equal(t, "invalid range notation 0", err.Error())
 }
@@ -52,7 +52,7 @@ func TestShouldReturnErrorIfRangeStartIsOutsideBoundsOfTimeUnit(t *testing.T) {
 	parser := &rangeNotationParser{}
 	input := "0-5"
 
-	_, err := parser.toValues(input, Month())
+	_, err := parser.toValues(input, month())
 
 	assert.Equal(t, "invalid month value 0 outside bounds 1 and 12", err.Error())
 }
@@ -61,7 +61,7 @@ func TestShouldReturnErrorIfRangeEndIsOutsideBoundsOfTimeUnit(t *testing.T) {
 	parser := &rangeNotationParser{}
 	input := "1-24"
 
-	_, err := parser.toValues(input, Hour())
+	_, err := parser.toValues(input, hour())
 
 	assert.Equal(t, "invalid hour value 24 outside bounds 0 and 23", err.Error())
 }
@@ -70,7 +70,7 @@ func TestShouldReturnErrorIfRangeStartIsNotInteger(t *testing.T) {
 	parser := &simpleNotationParser{}
 	input := "1.5-20"
 
-	_, err := parser.toValues(input, Hour())
+	_, err := parser.toValues(input, hour())
 
 	assert.Equal(t, "strconv.Atoi: parsing \"1.5-20\": invalid syntax", err.Error())
 }
@@ -79,7 +79,7 @@ func TestShouldReturnErrorIfRangeEndIsNotInteger(t *testing.T) {
 	parser := &simpleNotationParser{}
 	input := "1-20.5"
 
-	_, err := parser.toValues(input, Hour())
+	_, err := parser.toValues(input, hour())
 
 	assert.Equal(t, "strconv.Atoi: parsing \"1-20.5\": invalid syntax", err.Error())
 }

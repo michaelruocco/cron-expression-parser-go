@@ -4,4 +4,4 @@ import (
 	"regexp"
 )
 
-var IsInt = regexp.MustCompile(`^\d+$`).MatchString
+var isInt = regexp.MustCompile(`^\d+$`).MatchString

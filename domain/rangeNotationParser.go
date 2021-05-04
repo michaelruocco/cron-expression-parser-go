@@ -11,7 +11,7 @@ type rangeNotationParser struct{}
 func (p *rangeNotationParser) appliesTo(input string) bool {
 	parts := split(input)
 	if len(parts) == 2 {
-		return IsInt(parts[0]) && IsInt(parts[1])
+		return isInt(parts[0]) && isInt(parts[1])
 	}
 	return false
 }
@@ -29,11 +29,11 @@ func (p *rangeNotationParser) toValues(input string, timeUnit timeUnit) ([]int, 
 	if parseErr != nil {
 		return nil, parseErr
 	}
-	boundsErr := ValidateMultiple(timeUnit, []int{start, end})
+	boundsErr := timeUnitValidateMultipleInputs(timeUnit, []int{start, end})
 	if boundsErr != nil {
 		return nil, boundsErr
 	}
-	return InclusiveRange(start, end), nil
+	return inclusiveRange(start, end), nil
 }
 
 func split(input string) []string {

@@ -24,7 +24,7 @@ func TestShouldReturnIntegerForValidIntegerInput(t *testing.T) {
 	parser := &simpleNotationParser{}
 	input := "1"
 
-	values, _ := parser.toValues(input, Hour())
+	values, _ := parser.toValues(input, hour())
 
 	assert.Equal(t, []int{1}, values)
 }
@@ -33,7 +33,7 @@ func TestShouldReturnErrorIfInputOutsideBoundsOfTimeUnit(t *testing.T) {
 	parser := &simpleNotationParser{}
 	input := "24"
 
-	_, err := parser.toValues(input, Hour())
+	_, err := parser.toValues(input, hour())
 
 	assert.Equal(t, "invalid hour value 24 outside bounds 0 and 23", err.Error())
 }
@@ -42,7 +42,7 @@ func TestShouldReturnErrorIfInputIsNotInteger(t *testing.T) {
 	parser := &simpleNotationParser{}
 	input := "2.5"
 
-	_, err := parser.toValues(input, Hour())
+	_, err := parser.toValues(input, hour())
 
 	assert.Equal(t, "strconv.Atoi: parsing \"2.5\": invalid syntax", err.Error())
 }
