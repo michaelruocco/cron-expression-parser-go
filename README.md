@@ -53,6 +53,5 @@ running the following command to disable globbing:
 
 # TODO
 
+*  Add error and edge case scenario tests to cronExpressionParser_test.go, with -arguments, with values outside bounds and with decimal (non integer values)
 *  Add interval notation parser
-*  Add cronExpressionParser_test.go
-*  Add app_test.go

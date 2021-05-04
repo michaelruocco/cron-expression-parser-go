@@ -52,7 +52,7 @@ func parseExpression(args []string) (cronResult, error) {
 		DaysOfMonth: daysOfMonth,
 		Months:      months,
 		DaysOfWeek:  daysOfWeek,
-		Command:     "/usr/bin/find",
+		Command:     args[5],
 	}, nil
 }
 
