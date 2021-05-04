@@ -71,6 +71,32 @@ func TestShouldHandleTextualInputsForMonthAndDayOfWeek(t *testing.T) {
 		"command       my-command-5", output)
 }
 
+func TestShouldHandleComplexNotation(t *testing.T) {
+	args := []string{"1,4-8,*/15", "1", "1", "JAN-DEC", "MON-SUN", "my-command-6"}
+
+	output, _ := ParseCronExpression(args)
+
+	assert.Equal(t, "minute        0 1 4 5 6 7 8 15 30 45\n"+
+		"hour          1\n"+
+		"day of month  1\n"+
+		"month         1 2 3 4 5 6 7 8 9 10 11 12\n"+
+		"day of week   0 1 2 3 4 5 6\n"+
+		"command       my-command-6", output)
+}
+
+func TestShouldHandleComplexIntervalStartNotation(t *testing.T) {
+	args := []string{"3,45/15", "1", "1", "JAN-DEC", "MON-SUN", "my-command-7"}
+
+	output, _ := ParseCronExpression(args)
+
+	assert.Equal(t, "minute        3 18 33 45 48\n"+
+		"hour          1\n"+
+		"day of month  1\n"+
+		"month         1 2 3 4 5 6 7 8 9 10 11 12\n"+
+		"day of week   0 1 2 3 4 5 6\n"+
+		"command       my-command-7", output)
+}
+
 func TestShouldHandleArgumentOption(t *testing.T) {
 	args := []string{"-arguments", "1", "1", "1", "1", "1", "my-command-6"}
 

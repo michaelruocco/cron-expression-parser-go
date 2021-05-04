@@ -10,6 +10,7 @@ func buildComplexNotationParser() notationParser {
 			&simpleNotationParser{},
 			&wildcardNotationParser{},
 			&rangeNotationParser{},
+			buildIntervalNotationParser(),
 		},
 	}
 }
@@ -19,6 +20,9 @@ type complexNotationParser struct {
 }
 
 func (p *complexNotationParser) appliesTo(input string) bool {
+	if appliesToSegment(p.parsers, input) {
+		return true
+	}
 	segments := toSegments(input)
 	for _, segment := range segments {
 		if appliesToSegment(p.parsers, segment) {
@@ -29,6 +33,9 @@ func (p *complexNotationParser) appliesTo(input string) bool {
 }
 
 func (p *complexNotationParser) toValues(input string, timeUnit timeUnit) ([]int, error) {
+	if appliesToSegment(p.parsers, input) {
+		return segmentToValues(p.parsers, input, timeUnit)
+	}
 	segments := toSegments(input)
 	var allValues []int
 	for _, segment := range segments {

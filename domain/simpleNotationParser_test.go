@@ -6,16 +6,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestShouldApplyToPlainIntegerInput(t *testing.T) {
+func TestShouldApplyToIntegerInputs(t *testing.T) {
 	parser := &simpleNotationParser{}
 
 	assert.Equal(t, true, parser.appliesTo("1"))
+	assert.Equal(t, true, parser.appliesTo("3,4"))
 
 	assert.Equal(t, false, parser.appliesTo("1.5"))
 	assert.Equal(t, false, parser.appliesTo("*"))
 	assert.Equal(t, false, parser.appliesTo("-1"))
 	assert.Equal(t, false, parser.appliesTo("*/2"))
-	assert.Equal(t, false, parser.appliesTo("3,4"))
 	assert.Equal(t, false, parser.appliesTo("5-6"))
 	assert.Equal(t, false, parser.appliesTo("text"))
 }
@@ -27,6 +27,15 @@ func TestShouldReturnIntegerForValidIntegerInput(t *testing.T) {
 	values, _ := parser.toValues(input, hour())
 
 	assert.Equal(t, []int{1}, values)
+}
+
+func TestShouldReturnIntegersForMultipleValidIntegerInputs(t *testing.T) {
+	parser := &simpleNotationParser{}
+	input := "1,3"
+
+	values, _ := parser.toValues(input, hour())
+
+	assert.Equal(t, []int{1, 3}, values)
 }
 
 func TestShouldReturnErrorIfInputOutsideBoundsOfTimeUnit(t *testing.T) {

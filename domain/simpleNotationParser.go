@@ -2,19 +2,37 @@ package domain
 
 import (
 	"strconv"
+	"strings"
 )
 
 type simpleNotationParser struct{}
 
 func (p *simpleNotationParser) appliesTo(input string) bool {
-	return isInt(input)
+	return isInts(splitComma(input))
 }
 
 func (p *simpleNotationParser) toValues(input string, timeUnit timeUnit) ([]int, error) {
-	value, parseErr := strconv.Atoi(input)
+	values, parseErr := toInts(input)
 	if parseErr != nil {
 		return nil, parseErr
 	}
-	err := timeUnitValidateInput(timeUnit, value)
-	return []int{value}, err
+	err := timeUnitValidateMultipleInputs(timeUnit, values)
+	return values, err
+}
+
+func toInts(input string) ([]int, error) {
+	segments := splitComma(input)
+	values := make([]int, len(segments))
+	for i, segment := range segments {
+		value, parseErr := strconv.Atoi(segment)
+		if parseErr != nil {
+			return nil, parseErr
+		}
+		values[i] = value
+	}
+	return values, nil
+}
+
+func splitComma(input string) []string {
+	return strings.Split(input, ",")
 }

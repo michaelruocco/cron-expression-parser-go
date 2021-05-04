@@ -10,7 +10,7 @@ Parses Cron Expressions of the following format:
 
 For example given the input argument:
 
-`*/15 0 1,15 * 1-5 /usr/bin/find`
+`3,45/15 0 1,15 * 1-5 /usr/bin/find`
 
 The output should be:
 
@@ -33,11 +33,11 @@ command /usr/bin/find
 
 ## Running Example
 
-`go run main.go */15 0 1,15 * 1-9 /usr/bin/find`
+`go run main.go 3,45/15 0 1,15 * 1-9 /usr/bin/find`
 
 or
 
-`go run main.go -arguments */15 0 1,15 * MON-FRI /usr/bin/find`
+`go run main.go -arguments 3,45/15 0 1,15 * MON-FRI /usr/bin/find`
 
 If you are planning to pass any arguments with `*` notation you may
 need to configure your terminal to disable globbing. I found that using zsh shell on my mac this was
@@ -53,6 +53,5 @@ running the following command to disable globbing:
 
 # TODO
 
-*  Add interval notation parser
 *  Rework time units to split into separate files for hours / minutes etc?
 *  Refactor parseExpression method of cronExpressionParser?
