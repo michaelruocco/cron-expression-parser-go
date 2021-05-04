@@ -53,5 +53,6 @@ running the following command to disable globbing:
 
 # TODO
 
-*  Add error and edge case scenario tests to cronExpressionParser_test.go, with -arguments, with values outside bounds and with decimal (non integer values)
 *  Add interval notation parser
+*  Rework time units to split into separate files for hours / minutes etc?
+*  Refactor parseExpression method of cronExpressionParser?

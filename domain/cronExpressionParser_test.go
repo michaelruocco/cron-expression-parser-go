@@ -70,3 +70,104 @@ func TestShouldHandleTextualInputsForMonthAndDayOfWeek(t *testing.T) {
 		"day of week   0 1 2 3 4 5 6\n"+
 		"command       my-command-5", output)
 }
+
+func TestShouldHandleArgumentOption(t *testing.T) {
+	args := []string{"-arguments", "1", "1", "1", "1", "1", "my-command-6"}
+
+	output, _ := ParseCronExpression(args)
+
+	assert.Equal(t, "minute        1\n"+
+		"hour          1\n"+
+		"day of month  1\n"+
+		"month         1\n"+
+		"day of week   1\n"+
+		"command       my-command-6", output)
+}
+
+func TestShouldReturnErrorIfRequiredArgumentsNotProvided(t *testing.T) {
+	args := []string{}
+
+	_, err := ParseCronExpression(args)
+
+	assert.Equal(t, "usage: please provide a valid cron expression", err.Error())
+}
+
+func TestShouldNotAllowMinuteValueOutsideBounds(t *testing.T) {
+	args := []string{"61", "1", "1", "1", "1", "my-command"}
+
+	_, err := ParseCronExpression(args)
+
+	assert.Equal(t, "invalid minute value 61 outside bounds 0 and 59", err.Error())
+}
+
+func TestShouldNotAllowHourValueOutsideBounds(t *testing.T) {
+	args := []string{"1", "24", "1", "1", "1", "my-command"}
+
+	_, err := ParseCronExpression(args)
+
+	assert.Equal(t, "invalid hour value 24 outside bounds 0 and 23", err.Error())
+}
+
+func TestShouldNotAllowDayOfMonthValueOutsideBounds(t *testing.T) {
+	args := []string{"1", "1", "32", "1", "1", "my-command"}
+
+	_, err := ParseCronExpression(args)
+
+	assert.Equal(t, "invalid day of month value 32 outside bounds 1 and 31", err.Error())
+}
+
+func TestShouldNotAllowMonthValueOutsideBounds(t *testing.T) {
+	args := []string{"1", "1", "1", "13", "1", "my-command"}
+
+	_, err := ParseCronExpression(args)
+
+	assert.Equal(t, "invalid month value 13 outside bounds 1 and 12", err.Error())
+}
+
+func TestShouldNotAllowDayOfWeekValueOutsideBounds(t *testing.T) {
+	args := []string{"1", "1", "1", "1", "7", "my-command"}
+
+	_, err := ParseCronExpression(args)
+
+	assert.Equal(t, "invalid day of week value 7 outside bounds 0 and 6", err.Error())
+}
+
+func TestShouldNotAllowNotIntegerValuesForMinute(t *testing.T) {
+	args := []string{"1.1", "1", "1", "1", "7", "my-command"}
+
+	_, err := ParseCronExpression(args)
+
+	assert.Equal(t, "notation parser not found for value 1.1", err.Error())
+}
+
+func TestShouldNotAllowNotIntegerValuesForHour(t *testing.T) {
+	args := []string{"1", "1.1", "1", "1", "7", "my-command"}
+
+	_, err := ParseCronExpression(args)
+
+	assert.Equal(t, "notation parser not found for value 1.1", err.Error())
+}
+
+func TestShouldNotAllowNotIntegerValuesForDayOfMonth(t *testing.T) {
+	args := []string{"1", "1", "1.1", "1", "7", "my-command"}
+
+	_, err := ParseCronExpression(args)
+
+	assert.Equal(t, "notation parser not found for value 1.1", err.Error())
+}
+
+func TestShouldNotAllowNotIntegerValuesForMonth(t *testing.T) {
+	args := []string{"1", "1", "1", "1.1", "7", "my-command"}
+
+	_, err := ParseCronExpression(args)
+
+	assert.Equal(t, "notation parser not found for value 1.1", err.Error())
+}
+
+func TestShouldNotAllowNotIntegerValuesForDayOfWeek(t *testing.T) {
+	args := []string{"1", "1", "1", "1", "1.1", "my-command"}
+
+	_, err := ParseCronExpression(args)
+
+	assert.Equal(t, "notation parser not found for value 1.1", err.Error())
+}
