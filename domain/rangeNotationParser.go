@@ -9,7 +9,7 @@ import (
 type rangeNotationParser struct{}
 
 func (p *rangeNotationParser) appliesTo(input string) bool {
-	parts := split(input)
+	parts := splitHyphen(input)
 	if len(parts) == 2 {
 		return isInt(parts[0]) && isInt(parts[1])
 	}
@@ -17,17 +17,17 @@ func (p *rangeNotationParser) appliesTo(input string) bool {
 }
 
 func (p *rangeNotationParser) toValues(input string, timeUnit timeUnit) ([]int, error) {
-	parts := split(input)
+	parts := splitHyphen(input)
 	if len(parts) != 2 {
 		return nil, fmt.Errorf("invalid range notation %v", input)
 	}
 	start, parseErr := strconv.Atoi(parts[0])
 	if parseErr != nil {
-		return nil, parseErr
+		return nil, fmt.Errorf("invalid range notation %v", input)
 	}
 	end, parseErr := strconv.Atoi(parts[1])
 	if parseErr != nil {
-		return nil, parseErr
+		return nil, fmt.Errorf("invalid range notation %v", input)
 	}
 	boundsErr := timeUnitValidateMultipleInputs(timeUnit, []int{start, end})
 	if boundsErr != nil {
@@ -36,6 +36,6 @@ func (p *rangeNotationParser) toValues(input string, timeUnit timeUnit) ([]int, 
 	return inclusiveRange(start, end), nil
 }
 
-func split(input string) []string {
+func splitHyphen(input string) []string {
 	return strings.Split(input, "-")
 }

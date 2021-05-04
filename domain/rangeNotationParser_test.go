@@ -30,6 +30,15 @@ func TestShouldReturnValuesWithinRange(t *testing.T) {
 	assert.Equal(t, []int{1, 2, 3}, values)
 }
 
+func TestShouldReturnValuesWithinRangeIfStartIsGreaterThanEnd(t *testing.T) {
+	parser := &rangeNotationParser{}
+	input := "3-1"
+
+	values, _ := parser.toValues(input, hour())
+
+	assert.Equal(t, []int{1, 2, 3}, values)
+}
+
 func TestShouldReturnErrorIfRangeNotationIsInvalid(t *testing.T) {
 	parser := &rangeNotationParser{}
 	input := "-1-23"
@@ -67,19 +76,10 @@ func TestShouldReturnErrorIfRangeEndIsOutsideBoundsOfTimeUnit(t *testing.T) {
 }
 
 func TestShouldReturnErrorIfRangeStartIsNotInteger(t *testing.T) {
-	parser := &simpleNotationParser{}
+	parser := &rangeNotationParser{}
 	input := "1.5-20"
 
 	_, err := parser.toValues(input, hour())
 
-	assert.Equal(t, "strconv.Atoi: parsing \"1.5-20\": invalid syntax", err.Error())
-}
-
-func TestShouldReturnErrorIfRangeEndIsNotInteger(t *testing.T) {
-	parser := &simpleNotationParser{}
-	input := "1-20.5"
-
-	_, err := parser.toValues(input, hour())
-
-	assert.Equal(t, "strconv.Atoi: parsing \"1-20.5\": invalid syntax", err.Error())
+	assert.Equal(t, "invalid range notation 1.5-20", err.Error())
 }
