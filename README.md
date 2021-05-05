@@ -1,5 +1,7 @@
 # Cron Parser
 
+[![Build](https://github.com/michaelruocco/cron-expression-parser-go/workflows/pipeline/badge.svg)](https://github.com/michaelruocco/cron-expression-parser-go/actions)
+
 Parses Cron Expressions of the following format:
 
 *   (Minute) (hour) (day of month) (month) (day of week) (command)
