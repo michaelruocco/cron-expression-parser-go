@@ -53,5 +53,6 @@ running the following command to disable globbing:
 
 # TODO
 
+*  Add github actions build pipeline
 *  Rework time units to split into separate files for hours / minutes etc?
 *  Refactor parseExpression method of cronExpressionParser?
