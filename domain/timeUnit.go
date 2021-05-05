@@ -31,17 +31,17 @@ func dayOfWeek() timeUnit {
 	return timeUnit{"day of week", 0, 6}
 }
 
-func timeUnitToAllValues(timeUnit timeUnit) []int {
-	min := timeUnit.lowerBound
-	values := make([]int, timeUnit.upperBound-min+1)
+func (u *timeUnit) allValues() []int {
+	min := u.lowerBound
+	values := make([]int, u.upperBound-min+1)
 	for i := range values {
 		values[i] = min + i
 	}
 	return values
 }
 
-func timeUnitInputToIntValues(timeUnit timeUnit, inputValues string) string {
-	switch timeUnit.name {
+func (u *timeUnit) toIntValues(inputValues string) string {
+	switch u.name {
 	case "day of week":
 		return toDaysOfWeek(inputValues)
 	case "month":
@@ -51,25 +51,21 @@ func timeUnitInputToIntValues(timeUnit timeUnit, inputValues string) string {
 	}
 }
 
-func timeUnitValidateMultipleInputs(timeUnit timeUnit, inputs []int) error {
+func (u *timeUnit) validate(inputs []int) error {
 	for _, input := range inputs {
-		err := timeUnitValidateInput(timeUnit, input)
-		if err != nil {
-			return err
+		if u.isOutOfBounds(input) {
+			return fmt.Errorf("invalid %v value %d outside bounds %d and %d",
+				u.name,
+				input,
+				u.lowerBound,
+				u.upperBound)
 		}
 	}
 	return nil
 }
 
-func timeUnitValidateInput(timeUnit timeUnit, input int) error {
-	if isOutOfBounds(timeUnit, input) {
-		return fmt.Errorf("invalid %v value %d outside bounds %d and %d",
-			timeUnit.name,
-			input,
-			timeUnit.lowerBound,
-			timeUnit.upperBound)
-	}
-	return nil
+func (u *timeUnit) isOutOfBounds(input int) bool {
+	return input < u.lowerBound || input > u.upperBound
 }
 
 func toDaysOfWeek(input string) string {
@@ -101,8 +97,4 @@ func toMonths(input string) string {
 		"dec", "12",
 	)
 	return replacer.Replace(strings.ToLower(input))
-}
-
-func isOutOfBounds(timeUnit timeUnit, input int) bool {
-	return input < timeUnit.lowerBound || input > timeUnit.upperBound
 }

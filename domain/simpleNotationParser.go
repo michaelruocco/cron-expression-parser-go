@@ -17,7 +17,7 @@ func (p *simpleNotationParser) toValues(input string, timeUnit timeUnit) ([]int,
 	if parseErr != nil {
 		return nil, fmt.Errorf("invalid notation %v", input)
 	}
-	err := timeUnitValidateMultipleInputs(timeUnit, values)
+	err := timeUnit.validate(values)
 	return values, err
 }
 

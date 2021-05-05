@@ -57,7 +57,7 @@ func parseExpression(args []string) (cronResult, error) {
 }
 
 func parse(rawValues string, timeUnit timeUnit, notationParser notationParser) ([]int, error) {
-	intValues := timeUnitInputToIntValues(timeUnit, rawValues)
+	intValues := timeUnit.toIntValues(rawValues)
 	if notationParser.appliesTo(intValues) {
 		values, err := notationParser.toValues(intValues, timeUnit)
 		if err != nil {

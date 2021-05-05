@@ -12,17 +12,17 @@ Parses Cron Expressions of the following format:
 
 For example given the input argument:
 
-`3,45/15 0 1,15 * 1-5 /usr/bin/find`
+`3,45/15 0 1,15 * MON-FRI /usr/bin/find`
 
 The output should be:
 
 ```bash
-minute 0 15 30 45
-hour 0
-day of month 1 15
-month 1 2 3 4 5 6 7 8 9 10 11 12
-day of week 1 2 3 4 5
-command /usr/bin/find
+minute        3 18 33 45 48
+hour          0
+day of month  1 15
+month         1 2 3 4 5 6 7 8 9 10 11 12
+day of week   0 1 2 3 4
+command       /usr/bin/find
 ```
 
 ## Installing modules
@@ -55,6 +55,4 @@ running the following command to disable globbing:
 
 # TODO
 
-*  Add github actions build pipeline
-*  Rework time units to split into separate files for hours / minutes etc?
 *  Refactor parseExpression method of cronExpressionParser?

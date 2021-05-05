@@ -7,5 +7,5 @@ func (p *wildcardNotationParser) appliesTo(input string) bool {
 }
 
 func (p *wildcardNotationParser) toValues(input string, timeUnit timeUnit) ([]int, error) {
-	return timeUnitToAllValues(timeUnit), nil
+	return timeUnit.allValues(), nil
 }
