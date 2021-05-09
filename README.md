@@ -62,6 +62,6 @@ running the following command to disable globbing:
 
 `set -o noglob`
 
-# TODO
+## TODO
 
-*  Refactor parseExpression method of cronExpressionParser?
+*   Refactor parseExpression method of cronExpressionParser?
