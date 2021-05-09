@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"com.github.michaelruocco/cron-parser/domain"
+	"com.github.michaelruocco/cron-parser/parser"
 )
 
 func main() {
 	args := removeProgramName(os.Args)
-	output, err := domain.ParseCronExpression(args)
+	output, err := parser.ParseCronExpression(args)
 	if err != nil {
 		fmt.Println(err)
 		return

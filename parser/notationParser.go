@@ -1,4 +1,4 @@
-package domain
+package parser
 
 type notationParser interface {
 	appliesTo(input string) bool

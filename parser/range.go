@@ -1,4 +1,4 @@
-package domain
+package parser
 
 func inclusiveRange(x int, y int) []int {
 	start := min(x, y)

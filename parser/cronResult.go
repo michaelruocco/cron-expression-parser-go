@@ -1,4 +1,4 @@
-package domain
+package parser
 
 type cronResult struct {
 	Minutes     []int
