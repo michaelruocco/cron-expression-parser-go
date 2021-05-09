@@ -1,4 +1,4 @@
-# Cron Parser
+# Cron Expression Parser
 
 [![Build](https://github.com/michaelruocco/cron-expression-parser-go/workflows/pipeline/badge.svg)](https://github.com/michaelruocco/cron-expression-parser-go/actions)
 [![BCH compliance](https://bettercodehub.com/edge/badge/michaelruocco/cron-expression-parser-go?branch=master)](https://bettercodehub.com/)
