@@ -39,10 +39,7 @@ func (p *complexNotationParser) toValues(input string, timeUnit timeUnit) ([]int
 	segments := toSegments(input)
 	var allValues []int
 	for _, segment := range segments {
-		segmentValues, err := segmentToValues(p.parsers, segment, timeUnit)
-		if err != nil {
-			return nil, err
-		}
+		segmentValues, _ := segmentToValues(p.parsers, segment, timeUnit)
 		allValues = append(allValues, segmentValues...)
 	}
 	return allValues, nil
