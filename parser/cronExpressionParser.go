@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-//Takes a set of arguments which comprise the cron expression split by spaces.
+//ParseCronExpression takes a set of arguments which comprise the cron expression split by spaces.
 //Returns a cron result which contains integer values for the months, days and hours
 //along with the command to be executes, or will return an error if the input arguments
 //cannot be successfully parsed
