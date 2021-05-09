@@ -21,5 +21,5 @@ jobs:
       - name: Build
         run: go build .
 
-      - name: Tests
+      - name: Test
         run: go test ./... -v -cover -coverprofile=coverage.out
