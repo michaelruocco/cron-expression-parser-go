@@ -121,7 +121,7 @@ func TestShouldReturnErrorIfRequiredArgumentsNotProvided(t *testing.T) {
 }
 
 func TestShouldNotAllowMinuteValueOutsideBounds(t *testing.T) {
-	args := []string{"61", "1", "1", "1", "1", "my-command"}
+	args := []string{"61", "1", "1", "1", "1", command}
 
 	_, err := ParseCronExpression(args)
 
@@ -129,7 +129,7 @@ func TestShouldNotAllowMinuteValueOutsideBounds(t *testing.T) {
 }
 
 func TestShouldNotAllowHourValueOutsideBounds(t *testing.T) {
-	args := []string{"1", "24", "1", "1", "1", "my-command"}
+	args := []string{"1", "24", "1", "1", "1", command}
 
 	_, err := ParseCronExpression(args)
 
@@ -137,7 +137,7 @@ func TestShouldNotAllowHourValueOutsideBounds(t *testing.T) {
 }
 
 func TestShouldNotAllowDayOfMonthValueOutsideBounds(t *testing.T) {
-	args := []string{"1", "1", "32", "1", "1", "my-command"}
+	args := []string{"1", "1", "32", "1", "1", command}
 
 	_, err := ParseCronExpression(args)
 
@@ -185,7 +185,7 @@ func TestShouldNotAllowNotIntegerValuesForDayOfMonth(t *testing.T) {
 }
 
 func TestShouldNotAllowNotIntegerValuesForMonth(t *testing.T) {
-	args := []string{"1", "1", "1", "1.4", "7", "my-command"}
+	args := []string{"1", "1", "1", "1.4", "7", command}
 
 	_, err := ParseCronExpression(args)
 
