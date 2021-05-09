@@ -2,7 +2,9 @@
 
 [![Build](https://github.com/michaelruocco/cron-expression-parser-go/workflows/pipeline/badge.svg)](https://github.com/michaelruocco/cron-expression-parser-go/actions)
 [![BCH compliance](https://bettercodehub.com/edge/badge/michaelruocco/cron-expression-parser-go?branch=master)](https://bettercodehub.com/)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=michaelruocco_cron-expression-parser-go&metric=alert_status)](https://sonarcloud.io/dashboard?id=michaelruocco_cron-expression-parser-go)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=michaelruocco_cron-expression-parser-go&metric=sqale_index)](https://sonarcloud.io/dashboard?id=michaelruocco_cron-expression-parser-go)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=michaelruocco_cron-expression-parser-go&metric=coverage)](https://sonarcloud.io/dashboard?id=michaelruocco_cron-expression-parser-go)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=michaelruocco_cron-expression-parser-go&metric=ncloc)](https://sonarcloud.io/dashboard?id=michaelruocco_cron-expression-parser-go)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
