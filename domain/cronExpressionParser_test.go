@@ -6,6 +6,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const command = "my-command"
+
 func TestShouldHandleSimpleNotationForAllTimeUnits(t *testing.T) {
 	args := []string{"30", "12", "15", "6", "3", "my-command-1"}
 
@@ -59,52 +61,52 @@ func TestShouldHandleCommaNotationForAllTimeUnits(t *testing.T) {
 }
 
 func TestShouldHandleTextualInputsForMonthAndDayOfWeek(t *testing.T) {
-	args := []string{"1", "1", "1", "JAN-DEC", "MON-SUN", "my-command-5"}
+	args := []string{"1", "1", "1", "JAN-FEB", "SAT-SUN", "my-command-5"}
 
 	output, _ := ParseCronExpression(args)
 
 	assert.Equal(t, "minute        1\n"+
 		"hour          1\n"+
 		"day of month  1\n"+
-		"month         1 2 3 4 5 6 7 8 9 10 11 12\n"+
-		"day of week   0 1 2 3 4 5 6\n"+
+		"month         1 2\n"+
+		"day of week   5 6\n"+
 		"command       my-command-5", output)
 }
 
 func TestShouldHandleComplexNotation(t *testing.T) {
-	args := []string{"1,4-8,*/15", "1", "1", "JAN-DEC", "MON-SUN", "my-command-6"}
+	args := []string{"1,4-8,*/15", "2", "2", "MAR-MAY", "MON-TUE", "my-command-6"}
 
 	output, _ := ParseCronExpression(args)
 
 	assert.Equal(t, "minute        0 1 4 5 6 7 8 15 30 45\n"+
-		"hour          1\n"+
-		"day of month  1\n"+
-		"month         1 2 3 4 5 6 7 8 9 10 11 12\n"+
-		"day of week   0 1 2 3 4 5 6\n"+
+		"hour          2\n"+
+		"day of month  2\n"+
+		"month         3 4 5\n"+
+		"day of week   0 1\n"+
 		"command       my-command-6", output)
 }
 
 func TestShouldHandleComplexIntervalStartNotation(t *testing.T) {
-	args := []string{"3,45/15", "1", "1", "JAN-DEC", "MON-SUN", "my-command-7"}
+	args := []string{"3,45/15", "3", "3", "JUN-JUL", "WED-THU", "my-command-7"}
 
 	output, _ := ParseCronExpression(args)
 
 	assert.Equal(t, "minute        3 18 33 45 48\n"+
-		"hour          1\n"+
-		"day of month  1\n"+
-		"month         1 2 3 4 5 6 7 8 9 10 11 12\n"+
-		"day of week   0 1 2 3 4 5 6\n"+
+		"hour          3\n"+
+		"day of month  3\n"+
+		"month         6 7\n"+
+		"day of week   2 3\n"+
 		"command       my-command-7", output)
 }
 
 func TestShouldHandleArgumentOption(t *testing.T) {
-	args := []string{"-arguments", "1", "1", "1", "1", "1", "my-command-6"}
+	args := []string{"-arguments", "4", "4", "4", "1", "1", "my-command-6"}
 
 	output, _ := ParseCronExpression(args)
 
-	assert.Equal(t, "minute        1\n"+
-		"hour          1\n"+
-		"day of month  1\n"+
+	assert.Equal(t, "minute        4\n"+
+		"hour          4\n"+
+		"day of month  4\n"+
 		"month         1\n"+
 		"day of week   1\n"+
 		"command       my-command-6", output)
@@ -143,7 +145,7 @@ func TestShouldNotAllowDayOfMonthValueOutsideBounds(t *testing.T) {
 }
 
 func TestShouldNotAllowMonthValueOutsideBounds(t *testing.T) {
-	args := []string{"1", "1", "1", "13", "1", "my-command"}
+	args := []string{"1", "1", "1", "13", "1", command}
 
 	_, err := ParseCronExpression(args)
 
@@ -151,7 +153,7 @@ func TestShouldNotAllowMonthValueOutsideBounds(t *testing.T) {
 }
 
 func TestShouldNotAllowDayOfWeekValueOutsideBounds(t *testing.T) {
-	args := []string{"1", "1", "1", "1", "7", "my-command"}
+	args := []string{"1", "1", "1", "1", "7", command}
 
 	_, err := ParseCronExpression(args)
 
@@ -159,7 +161,7 @@ func TestShouldNotAllowDayOfWeekValueOutsideBounds(t *testing.T) {
 }
 
 func TestShouldNotAllowNotIntegerValuesForMinute(t *testing.T) {
-	args := []string{"1.1", "1", "1", "1", "7", "my-command"}
+	args := []string{"1.1", "1", "1", "1", "7", command}
 
 	_, err := ParseCronExpression(args)
 
@@ -167,33 +169,33 @@ func TestShouldNotAllowNotIntegerValuesForMinute(t *testing.T) {
 }
 
 func TestShouldNotAllowNotIntegerValuesForHour(t *testing.T) {
-	args := []string{"1", "1.1", "1", "1", "7", "my-command"}
+	args := []string{"1", "1.2", "1", "1", "7", command}
 
 	_, err := ParseCronExpression(args)
 
-	assert.Equal(t, "notation parser not found for value 1.1", err.Error())
+	assert.Equal(t, "notation parser not found for value 1.2", err.Error())
 }
 
 func TestShouldNotAllowNotIntegerValuesForDayOfMonth(t *testing.T) {
-	args := []string{"1", "1", "1.1", "1", "7", "my-command"}
+	args := []string{"1", "1", "1.3", "1", "7", command}
 
 	_, err := ParseCronExpression(args)
 
-	assert.Equal(t, "notation parser not found for value 1.1", err.Error())
+	assert.Equal(t, "notation parser not found for value 1.3", err.Error())
 }
 
 func TestShouldNotAllowNotIntegerValuesForMonth(t *testing.T) {
-	args := []string{"1", "1", "1", "1.1", "7", "my-command"}
+	args := []string{"1", "1", "1", "1.4", "7", "my-command"}
 
 	_, err := ParseCronExpression(args)
 
-	assert.Equal(t, "notation parser not found for value 1.1", err.Error())
+	assert.Equal(t, "notation parser not found for value 1.4", err.Error())
 }
 
 func TestShouldNotAllowNotIntegerValuesForDayOfWeek(t *testing.T) {
-	args := []string{"1", "1", "1", "1", "1.1", "my-command"}
+	args := []string{"1", "1", "1", "1", "1.5", command}
 
 	_, err := ParseCronExpression(args)
 
-	assert.Equal(t, "notation parser not found for value 1.1", err.Error())
+	assert.Equal(t, "notation parser not found for value 1.5", err.Error())
 }
