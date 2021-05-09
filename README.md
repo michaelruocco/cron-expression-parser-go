@@ -1,6 +1,10 @@
 # Cron Parser
 
 [![Build](https://github.com/michaelruocco/cron-expression-parser-go/workflows/pipeline/badge.svg)](https://github.com/michaelruocco/cron-expression-parser-go/actions)
+[![BCH compliance](https://bettercodehub.com/edge/badge/michaelruocco/cron-expression-parser-go?branch=master)](https://bettercodehub.com/)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=michaelruocco_cron-expression-parser-go&metric=sqale_index)](https://sonarcloud.io/dashboard?id=michaelruocco_cron-expression-parser-go)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=michaelruocco_cron-expression-parser-go&metric=ncloc)](https://sonarcloud.io/dashboard?id=michaelruocco_cron-expression-parser-go)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This was my first attempt at using Go. I already had an existing implementation for this problem written
 in [Java](https://github.com/michaelruocco/cron-expression-parser-java) so I decided to have a go at porting it across into Go in order to use it as an excuse to get started using it.
