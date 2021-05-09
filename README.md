@@ -1,6 +1,7 @@
 # Cron Expression Parser
 
 [![Build](https://github.com/michaelruocco/cron-expression-parser-go/workflows/pipeline/badge.svg)](https://github.com/michaelruocco/cron-expression-parser-go/actions)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6c502b16c2b54530899f657aa75bfbd4)](https://www.codacy.com/gh/michaelruocco/cron-expression-parser-go/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=michaelruocco/cron-expression-parser-go&amp;utm_campaign=Badge_Grade)
 [![BCH compliance](https://bettercodehub.com/edge/badge/michaelruocco/cron-expression-parser-go?branch=master)](https://bettercodehub.com/)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=michaelruocco_cron-expression-parser-go&metric=alert_status)](https://sonarcloud.io/dashboard?id=michaelruocco_cron-expression-parser-go)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=michaelruocco_cron-expression-parser-go&metric=sqale_index)](https://sonarcloud.io/dashboard?id=michaelruocco_cron-expression-parser-go)
