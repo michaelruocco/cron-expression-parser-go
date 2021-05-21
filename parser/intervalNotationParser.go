@@ -2,7 +2,6 @@ package parser
 
 import (
 	"fmt"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -32,15 +31,19 @@ func (p *intervalNotationParser) toValues(input string, timeUnit timeUnit) ([]in
 	if len(parts) != 2 {
 		return nil, fmt.Errorf("invalid interval notation %v", input)
 	}
-	starts, parseErr := p.toStarts(parts[0], timeUnit)
+	start, parseErr := p.toStart(parts[0], timeUnit)
 	if parseErr != nil {
 		return nil, parseErr
 	}
+	end, parseErr := p.toEnd(parts[0], timeUnit)
 	interval, parseErr := strconv.Atoi(parts[1])
-	if parseErr != nil {
+	startErr := timeUnit.validate([]int{start})
+	endErr := timeUnit.validate([]int{end})
+	if parseErr != nil || startErr != nil || endErr != nil {
 		return nil, fmt.Errorf("invalid interval notation %v", input)
 	}
-	return calculateIntervals(starts, timeUnit, interval), nil
+
+	return calculateIntervals(start, end, interval), nil
 }
 
 func splitSlash(input string) []string {
@@ -57,32 +60,38 @@ func isWildcard(input string) bool {
 	return input == "*"
 }
 
-func (p *intervalNotationParser) toStarts(input string, timeUnit timeUnit) ([]int, error) {
+func (p *intervalNotationParser) toStart(input string, timeUnit timeUnit) (int, error) {
 	if isWildcard(input) {
-		return []int{timeUnit.lowerBound}, nil
+		return timeUnit.lowerBound, nil
 	}
 	if p.rangeParser.appliesTo(input) {
-		return p.rangeParser.toValues(input, timeUnit)
+		return extractFirst(input, timeUnit, p.rangeParser)
 	}
-	return p.simpleParser.toValues(input, timeUnit)
+	return extractFirst(input, timeUnit, p.simpleParser)
 }
 
-func calculateIntervals(starts []int, timeUnit timeUnit, interval int) []int {
-	intervals := []int{}
-	for _, start := range starts {
-		intervals = append(intervals, toInterval(start, timeUnit, interval)...)
+func extractFirst(input string, timeUnit timeUnit, parser notationParser) (int, error) {
+	values, err := parser.toValues(input, timeUnit)
+	if err != nil {
+		return -1, err
 	}
-	intervals = unique(intervals)
-	sort.Ints(intervals)
-	return intervals
+	return values[0], nil
 }
 
-func toInterval(start int, timeUnit timeUnit, interval int) []int {
+func (p *intervalNotationParser) toEnd(input string, timeUnit timeUnit) (int, error) {
+	if p.rangeParser.appliesTo(input) {
+		values, _ := p.rangeParser.toValues(input, timeUnit)
+		return values[len(values)-1], nil
+	}
+	return timeUnit.upperBound, nil
+}
+
+func calculateIntervals(start int, end int, interval int) []int {
 	intervals := []int{}
-	for i := start; i <= timeUnit.upperBound; i = i + interval {
+	for i := start; i <= end; i = i + interval {
 		intervals = append(intervals, i)
 	}
-	return intervals
+	return unique(intervals)
 }
 
 func unique(intSlice []int) []int {

@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -86,12 +87,12 @@ func TestShouldHandleComplexNotation(t *testing.T) {
 		"command       my-command-6", output)
 }
 
-func TestShouldHandleComplexIntervalStartNotation(t *testing.T) {
+func TestShouldHandleComplexIntervalStartNotationWithComma(t *testing.T) {
 	args := []string{"3,45/15", "3", "3", "JUN-JUL", "WED-THU", "my-command-7"}
 
 	output, _ := ParseCronExpression(args)
 
-	assert.Equal(t, "minute        3 18 33 45 48\n"+
+	assert.Equal(t, "minute        3 45\n"+
 		"hour          3\n"+
 		"day of month  3\n"+
 		"month         6 7\n"+
@@ -99,17 +100,30 @@ func TestShouldHandleComplexIntervalStartNotation(t *testing.T) {
 		"command       my-command-7", output)
 }
 
-func TestShouldHandleArgumentOption(t *testing.T) {
-	args := []string{"-arguments", "4", "4", "4", "1", "1", "my-command-6"}
+func TestShouldHandleComplexIntervalStartNotationWithCommanAndRange(t *testing.T) {
+	args := []string{"3,40-45/5", "4", "4", "4", "4", "my-command-8"}
 
 	output, _ := ParseCronExpression(args)
 
-	assert.Equal(t, "minute        4\n"+
+	assert.Equal(t, "minute        3 40 45\n"+
 		"hour          4\n"+
 		"day of month  4\n"+
-		"month         1\n"+
-		"day of week   1\n"+
-		"command       my-command-6", output)
+		"month         4\n"+
+		"day of week   4\n"+
+		"command       my-command-8", output)
+}
+
+func TestShouldHandleArgumentOption(t *testing.T) {
+	args := []string{"-arguments", "5", "5", "5", "5", "5", "my-command-9"}
+
+	output, _ := ParseCronExpression(args)
+
+	assert.Equal(t, "minute        5\n"+
+		"hour          5\n"+
+		"day of month  5\n"+
+		"month         5\n"+
+		"day of week   5\n"+
+		"command       my-command-9", output)
 }
 
 func TestShouldReturnErrorIfRequiredArgumentsNotProvided(t *testing.T) {
@@ -121,11 +135,12 @@ func TestShouldReturnErrorIfRequiredArgumentsNotProvided(t *testing.T) {
 }
 
 func TestShouldNotAllowMinuteValueOutsideBounds(t *testing.T) {
-	args := []string{"61", "1", "1", "1", "1", command}
+	args := []string{"60", "1", "1", "1", "1", command}
 
-	_, err := ParseCronExpression(args)
+	temp, err := ParseCronExpression(args)
 
-	assert.Equal(t, "invalid minute value 61 outside bounds 0 and 59", err.Error())
+	fmt.Println(temp)
+	assert.Equal(t, "invalid minute value 60 outside bounds 0 and 59", err.Error())
 }
 
 func TestShouldNotAllowHourValueOutsideBounds(t *testing.T) {

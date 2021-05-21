@@ -40,25 +40,34 @@ func TestShouldReturnIntervalValuesWithRangeOfStartValues(t *testing.T) {
 
 	values, _ := parser.toValues(input, hour())
 
-	assert.Equal(t, []int{2, 3, 4, 8, 9, 10, 14, 15, 16, 20, 21, 22}, values)
+	assert.Equal(t, []int{2}, values)
 }
 
-func TestShouldReturnIntervalValuesWithMultipleStartValues(t *testing.T) {
+func TestShouldReturnIntervalValuesWithStartAndEndValues(t *testing.T) {
 	parser := buildIntervalNotationParser()
 	input := "2,4/6"
 
 	values, _ := parser.toValues(input, hour())
 
-	assert.Equal(t, []int{2, 4, 8, 10, 14, 16, 20, 22}, values)
+	assert.Equal(t, []int{2, 8, 14, 20}, values)
 }
 
-func TestShouldReturnIntervalValuesWithMultipleStartValues1(t *testing.T) {
+func TestShouldReturnIntervalValuesWithNonIntegerEndValue(t *testing.T) {
 	parser := buildIntervalNotationParser()
-	input := "3,45/15"
+	input := "2,20.5/6"
 
-	values, _ := parser.toValues(input, minute())
+	_, err := parser.toValues(input, hour())
 
-	assert.Equal(t, []int{3, 18, 33, 45, 48}, values)
+	assert.Equal(t, "invalid notation 2,20.5", err.Error())
+}
+
+func TestShouldReturnIntervalValuesWithEndValueOutOfBoundsValue(t *testing.T) {
+	parser := buildIntervalNotationParser()
+	input := "2,24/6"
+
+	_, err := parser.toValues(input, hour())
+
+	assert.Equal(t, "invalid hour value 24 outside bounds 0 and 23", err.Error())
 }
 
 func TestShouldReturnIntervalValuesWithWildcardStartValues(t *testing.T) {

@@ -65,8 +65,10 @@ func parse(rawValues string, timeUnit timeUnit, notationParser notationParser) (
 	if notationParser.appliesTo(intValues) {
 		values, err := notationParser.toValues(intValues, timeUnit)
 		if err != nil {
+			fmt.Printf("error1 %v", err.Error())
 			return nil, err
 		}
+		fmt.Printf("values %v", values)
 		return values, nil
 	}
 	return nil, fmt.Errorf("notation parser not found for value %v", rawValues)
