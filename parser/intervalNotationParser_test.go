@@ -58,7 +58,7 @@ func TestShouldReturnIntervalValuesWithNonIntegerEndValue(t *testing.T) {
 
 	_, err := parser.toValues(input, hour())
 
-	assert.Equal(t, "invalid notation 2,20.5", err.Error())
+	assert.Equal(t, "invalid interval notation 2,20.5/6", err.Error())
 }
 
 func TestShouldReturnIntervalValuesWithEndValueOutOfBoundsValue(t *testing.T) {
@@ -67,7 +67,7 @@ func TestShouldReturnIntervalValuesWithEndValueOutOfBoundsValue(t *testing.T) {
 
 	_, err := parser.toValues(input, hour())
 
-	assert.Equal(t, "invalid hour value 24 outside bounds 0 and 23", err.Error())
+	assert.Equal(t, "invalid interval notation 2,24/6", err.Error())
 }
 
 func TestShouldReturnIntervalValuesWithWildcardStartValues(t *testing.T) {
@@ -94,7 +94,7 @@ func TestShouldReturnErrorIfStartIsOutsideBoundsOfTimeUnit(t *testing.T) {
 
 	_, err := parser.toValues(input, hour())
 
-	assert.Equal(t, "invalid hour value 24 outside bounds 0 and 23", err.Error())
+	assert.Equal(t, "invalid interval notation 24/2", err.Error())
 }
 
 func TestShouldReturnErrorIfIntervalStartIsIsNotInteger(t *testing.T) {
@@ -103,7 +103,7 @@ func TestShouldReturnErrorIfIntervalStartIsIsNotInteger(t *testing.T) {
 
 	_, err := parser.toValues(input, hour())
 
-	assert.Equal(t, "invalid notation 3.5", err.Error())
+	assert.Equal(t, "invalid interval notation 3.5/2", err.Error())
 }
 
 func TestShouldReturnErrorIfIntervalIsNotInteger(t *testing.T) {

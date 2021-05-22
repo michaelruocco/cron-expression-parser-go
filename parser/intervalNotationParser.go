@@ -31,19 +31,24 @@ func (p *intervalNotationParser) toValues(input string, timeUnit timeUnit) ([]in
 	if len(parts) != 2 {
 		return nil, fmt.Errorf("invalid interval notation %v", input)
 	}
-	start, parseErr := p.toStart(parts[0], timeUnit)
-	if parseErr != nil {
-		return nil, parseErr
-	}
-	end, parseErr := p.toEnd(parts[0], timeUnit)
-	interval, parseErr := strconv.Atoi(parts[1])
-	startErr := timeUnit.validate([]int{start})
-	endErr := timeUnit.validate([]int{end})
-	if parseErr != nil || startErr != nil || endErr != nil {
+	start, startParseErr := p.toStart(parts[0], timeUnit)
+	end, endParseErr := p.toEnd(parts[0], timeUnit)
+	interval, intervalParseErr := strconv.Atoi(parts[1])
+	startErr := timeUnit.validate(start)
+	endErr := timeUnit.validate(end)
+	if anyNotNull(startParseErr, endParseErr, intervalParseErr, startErr, endErr) {
 		return nil, fmt.Errorf("invalid interval notation %v", input)
 	}
-
 	return calculateIntervals(start, end, interval), nil
+}
+
+func anyNotNull(errors ...error) bool {
+	for _, err := range errors {
+		if err != nil {
+			return true
+		}
+	}
+	return false
 }
 
 func splitSlash(input string) []string {

@@ -27,14 +27,14 @@ func TestDayOfMonthShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
 	dayOfMonth := dayOfMonth()
 	values := []int{1, 31}
 
-	err := dayOfMonth.validate(values)
+	err := dayOfMonth.validate(values...)
 
 	assert.Equal(t, nil, err)
 }
 
 func TestDayOfMonthShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
 	dayOfMonth := dayOfMonth()
-	values := []int{0}
+	values := 0
 
 	err := dayOfMonth.validate(values)
 
@@ -43,7 +43,7 @@ func TestDayOfMonthShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
 
 func TestDayOfMonthShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T) {
 	dayOfMonth := dayOfMonth()
-	values := []int{32}
+	values := 32
 
 	err := dayOfMonth.validate(values)
 

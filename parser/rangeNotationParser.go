@@ -29,7 +29,7 @@ func (p *rangeNotationParser) toValues(input string, timeUnit timeUnit) ([]int, 
 	if parseErr != nil {
 		return nil, toInvalidRangeNotationError(input)
 	}
-	boundsErr := timeUnit.validate([]int{start, end})
+	boundsErr := timeUnit.validate(start, end)
 	if boundsErr != nil {
 		return nil, boundsErr
 	}

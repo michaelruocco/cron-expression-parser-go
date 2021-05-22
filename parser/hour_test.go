@@ -27,14 +27,14 @@ func TestHourShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
 	hour := hour()
 	value := []int{0, 23}
 
-	err := hour.validate(value)
+	err := hour.validate(value...)
 
 	assert.Equal(t, nil, err)
 }
 
 func TestHourShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
 	hour := hour()
-	value := []int{-1}
+	value := -1
 
 	err := hour.validate(value)
 
@@ -43,7 +43,7 @@ func TestHourShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
 
 func TestHourShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T) {
 	hour := hour()
-	value := []int{24}
+	value := 24
 
 	err := hour.validate(value)
 

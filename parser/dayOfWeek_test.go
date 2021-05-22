@@ -27,14 +27,14 @@ func TestDayOfWeekShouldNotReturnErrorIfValuesAreWithinBounds(t *testing.T) {
 	dayOfWeek := dayOfWeek()
 	values := []int{0, 6}
 
-	err := dayOfWeek.validate(values)
+	err := dayOfWeek.validate(values...)
 
 	assert.Equal(t, nil, err)
 }
 
 func TestDayOfWeekShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
 	dayOfWeek := dayOfWeek()
-	values := []int{-1}
+	values := -1
 
 	err := dayOfWeek.validate(values)
 
@@ -43,7 +43,7 @@ func TestDayOfWeekShouldReturnErrorIfValueIsLessThanLowerBound(t *testing.T) {
 
 func TestDayOfWeekShouldReturnErrorIfValueIsGreaterThanUpperBound(t *testing.T) {
 	dayOfWeek := dayOfWeek()
-	values := []int{7}
+	values := 7
 
 	err := dayOfWeek.validate(values)
 

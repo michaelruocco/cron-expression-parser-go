@@ -51,7 +51,7 @@ func (u *timeUnit) toIntValues(inputValues string) string {
 	}
 }
 
-func (u *timeUnit) validate(inputs []int) error {
+func (u *timeUnit) validate(inputs ...int) error {
 	for _, input := range inputs {
 		if u.isOutOfBounds(input) {
 			return fmt.Errorf("invalid %v value %d outside bounds %d and %d",
