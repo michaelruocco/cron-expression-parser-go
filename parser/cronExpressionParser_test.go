@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -137,9 +136,8 @@ func TestShouldReturnErrorIfRequiredArgumentsNotProvided(t *testing.T) {
 func TestShouldNotAllowMinuteValueOutsideBounds(t *testing.T) {
 	args := []string{"60", "1", "1", "1", "1", command}
 
-	temp, err := ParseCronExpression(args)
+	_, err := ParseCronExpression(args)
 
-	fmt.Println(temp)
 	assert.Equal(t, "invalid minute value 60 outside bounds 0 and 59", err.Error())
 }
 
